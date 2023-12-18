@@ -1,49 +1,17 @@
-const mongoose = require('mongoose')
+// patients.js
+const express = require('express');
+const router = express.Router();
+const patientsController = require('../controllers/patientsController');
 
-const patient = mongoose.Schema(
-{
-   PatientID:{
-        type: String,
-        required:[true, "Enter patient ID"]
-   },
-   Surname:{
-         type: String,
-         required:[true, "Enter Surname" ]
-   },
-   Othernames:{
-         type: String,
-         required: true,
-   },
-   Gender:{
-         type: String,
-         required: true
-   },
-   PhoneNumber:{
-         type: String,
-         required: false
-   },
-   ResidentialAddress:{
-         type: String,
-         required: false
-   },
-   EmergencyName:{
-         type: String,
-         required:true
-   },
-   EmergencyContact:{
-         type: Number,
-         required: true
-   },
-   RelationshipWithPatient:{
-         type: String,
-         required: false
-   },
+// Route to register a new patient
+router.post('/register', patientsController.registerPatient);
 
-   timestamps:{
-    timestamps:true
-   }
-}
-)
+// Route to get a list of all patients
+router.get('/', patientsController.getAllPatients);
 
-const Patient = mongoose.model('Product', patient);
-module.exports = patient;
+// Route to get details of a specific patient
+router.get('/:id', patientsController.getPatientDetails);
+
+// Other patient-related routes can be added here as needed
+
+module.exports = router;
